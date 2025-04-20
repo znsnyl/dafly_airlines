@@ -1,0 +1,3 @@
+Név: Lugosi József
+Neptun: ZNSNYL
+fájl: dafly_airlines.py
