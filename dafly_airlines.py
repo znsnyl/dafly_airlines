@@ -5,8 +5,7 @@ from datetime import datetime, timedelta
 from abc import ABC, abstractmethod
 from typing import List
 
-# ========== OOP OSZTÁLYOK ==========
-
+# Osztályok:
 class Jarat(ABC):
     def __init__(self, jaratszam: str, hova: str, ar: int, indulas: str) -> None:
         self.jaratszam = jaratszam
@@ -64,8 +63,7 @@ class LegiTarsasag:
     def hozzaad_jarat(self, jarat: Jarat):
         self.jaratok.append(jarat)
 
-# ========== ÁLLANDÓK ==========
-
+# Állandók
 INDULASI_VAROS = "Budapest"
 BELFOLDI = ["Pécs", "Szeged", "Győr", "Miskolc", "Zalaegerszeg"]
 NEMZETKOZI = ["New York", "Rio de Janeiro", "Róma", "Bangkok", "Moszkva", "Dubai", "Bécs", "Peking", "Párizs", "Mexico City"]
@@ -74,8 +72,7 @@ DATA_DIR = "data"
 JARATOK_FILE = os.path.join(DATA_DIR, "jaratok.json")
 FOGLALASOK_FILE = os.path.join(DATA_DIR, "foglalasok.json")
 
-# ========== SEGÉD FÜGGVÉNYEK ==========
-
+# Függvények
 def clear(): os.system('cls' if os.name == 'nt' else 'clear')
 
 def save_json(path, data):
@@ -123,8 +120,7 @@ def generate_jaratok(start_idx: int, n: int, start_time=None) -> List[dict]:
     save_json(JARATOK_FILE, json_ready)
     return json_ready
 
-# ========== FELHASZNÁLÓI FUNKCIÓK ==========
-
+# Funkciók
 def list_jaratok(jaratok):
     print("\nLegközelebbi járataink:")
     for j in jaratok:
@@ -139,7 +135,7 @@ def foglalas_menet(jaratok):
         if not any(j['jaratszam'] == valasz for j in jaratok):
             continue
         if any(f['jaratszam'] == valasz for f in foglalasok):
-            print("❗ Már van foglalás erre a járatra."); continue
+            print(" Már van foglalás erre a járatra."); continue
         jarat = next(j for j in jaratok if j['jaratszam'] == valasz)
         foglalas = JegyFoglalas(jarat=type('DynamicJarat', (Jarat,), {
             'kategoria': lambda self: jarat['kategoria'],
@@ -205,11 +201,10 @@ def menurendszer(jaratok):
         elif valasz == "4":
             torol_foglalas()
         elif valasz == "5":
-            print("Viszlát! Köszönjük, hogy a DaFly Airlines-szal utazott!")
+            print("Viszlát! Köszönjük, hogy a DaFly Airlinest választotta!")
             break
 
-# ========== INDÍTÁS ==========
-
+# Program
 if __name__ == "__main__":
     ensure_dirs()
     if not os.path.exists(JARATOK_FILE):
@@ -217,7 +212,7 @@ if __name__ == "__main__":
     else:
         jaratok = load_json(JARATOK_FILE)
 
-    print("\nÜdvözlünk a DaFly Airlines foglalási rendszerében!")
+    print("\nÜdvözöljük a DaFly Airlines foglalási rendszerében!")
     indulasi_foglalas(jaratok)
     menurendszer(jaratok)
 
